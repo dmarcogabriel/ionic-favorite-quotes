@@ -17,7 +17,7 @@ import { Quote } from '../../data/quote.interface';
 })
 export class FavoritesPage {
 
-  //PROPRIEDADES
+  //ATTRIBUTES
   quotes: Quote[];
 
 
@@ -28,7 +28,7 @@ export class FavoritesPage {
     private modalCtrl: ModalController
   ) { }
 
-  //MÉTODOS
+  //METHODS
   ionViewWillEnter() {
     this.quotes = this.quoteService.getFavoriteQuotes();
   }
@@ -41,6 +41,12 @@ export class FavoritesPage {
     modal.onDidDismiss((remove: boolean) => {
       if (remove) {
         this.quoteService.removeQuoteFromFavorites(selectedQuote);
+
+        //UPDATE FAVORITE PAGE
+        const position = this.quotes.findIndex((el: Quote) => {
+          return el.id == selectedQuote.id;
+        });
+        this.quotes.splice(position, 1);
       }
     });
   }
