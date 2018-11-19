@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 
-/**
- * Generated class for the QuotePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+//PROVIDERS
+import { QuotesService } from './../../services/quotes';
+
+//DATA
+import { Quote } from '../../data/quote.interface';
+
 
 @IonicPage()
 @Component({
@@ -15,11 +15,42 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class QuotePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  person: string;
+  text: string;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private quotesService: QuotesService,
+    private ViewCtrl: ViewController,
+    private alertCtrl: AlertController
+  ) {
   }
 
+  //METHODS
   ionViewDidLoad() {
-    console.log('ionViewDidLoad QuotePage');
+    this.person = this.navParams.get('person');
+    this.text = this.navParams.get('text');
   }
 
+  closeModal(remove = false) {
+    const alert = this.alertCtrl.create({
+      title: 'Remove this Quote?',
+      message: 'Are you sure want to remove this quote?',
+      buttons: [
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.ViewCtrl.dismiss(remove);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => console.log('Cancelled!')
+        }
+      ]
+    });
+    alert.present();
+  }
 }
