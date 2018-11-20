@@ -18,6 +18,7 @@ import { QuotePage } from './../pages/quote/quote';
 import { TabsPage } from './../pages/tabs/tabs';
 
 //PROVIDERS
+import { SettingsService } from '../services/settings';
 import { QuotesService } from './../services/quotes';
 
 
@@ -49,7 +50,8 @@ import { QuotesService } from './../services/quotes';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    QuotesService
+    QuotesService,
+    SettingsService
   ]
 })
 export class AppModule {}

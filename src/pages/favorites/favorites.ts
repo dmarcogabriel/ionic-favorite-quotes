@@ -6,6 +6,7 @@ import { QuotePage } from './../quote/quote';
 
 //PROVIDERS
 import { QuotesService } from './../../services/quotes';
+import { SettingsService } from '../../services/settings';
 
 //INTERFACES
 import { Quote } from '../../data/quote.interface';
@@ -25,12 +26,18 @@ export class FavoritesPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private quoteService: QuotesService,
+    private settingsService: SettingsService,
     private modalCtrl: ModalController
   ) { }
 
   //METHODS
   ionViewWillEnter() {
     this.quotes = this.quoteService.getFavoriteQuotes();
+  }
+
+  //GET BACKGROUND COLOR
+  getBgColor() {
+    return this.settingsService.getBgColor();
   }
 
   //MODAL QUOTE
@@ -41,7 +48,6 @@ export class FavoritesPage {
     modal.onDidDismiss((remove: boolean) => {
 
       if (remove) {
-        
         //Remove and update array
         this.removeQuote(selectedQuote);
       }

@@ -14,7 +14,15 @@
 
 </ion-header>
 
-
 <ion-content padding>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Change Background</ion-label>
+      <ion-toggle (ionChange)="onToggle($event)" [checked]="getCheckState()"></ion-toggle>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
