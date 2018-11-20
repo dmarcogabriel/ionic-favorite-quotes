@@ -20,4 +20,11 @@ export class QuotesService {
     });
     this.favoriteQuotes.splice(position, 1);
   }
+
+  //CHECK IF IT'S FAVORITED
+  isQuoteFavorited(quote: Quote) {
+    return this.favoriteQuotes.find((quoteEl: Quote) => {
+      return quoteEl.id == quote.id;
+    });
+  }
 }

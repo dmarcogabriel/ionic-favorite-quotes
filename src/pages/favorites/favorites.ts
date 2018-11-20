@@ -39,15 +39,23 @@ export class FavoritesPage {
 
     modal.present();
     modal.onDidDismiss((remove: boolean) => {
-      if (remove) {
-        this.quoteService.removeQuoteFromFavorites(selectedQuote);
 
-        //UPDATE FAVORITE PAGE
-        const position = this.quotes.findIndex((el: Quote) => {
-          return el.id == selectedQuote.id;
-        });
-        this.quotes.splice(position, 1);
+      if (remove) {
+        
+        //Remove and update array
+        this.removeQuote(selectedQuote);
       }
     });
+  }
+
+  //REMOVE QUOTE
+  removeQuote(selectedQuote: Quote) {
+    this.quoteService.removeQuoteFromFavorites(selectedQuote);
+
+    //UPDATE FAVORITE PAGE
+    const position = this.quotes.findIndex((quoteEl: Quote) => {
+      return quoteEl.id == selectedQuote.id;
+    });
+    this.quotes.splice(position, 1);
   }
 }

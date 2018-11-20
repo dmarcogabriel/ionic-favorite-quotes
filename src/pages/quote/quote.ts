@@ -4,9 +4,6 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 //PROVIDERS
 import { QuotesService } from './../../services/quotes';
 
-//DATA
-import { Quote } from '../../data/quote.interface';
-
 
 @IonicPage()
 @Component({
@@ -34,23 +31,29 @@ export class QuotePage {
   }
 
   closeModal(remove = false) {
-    const alert = this.alertCtrl.create({
-      title: 'Remove this Quote?',
-      message: 'Are you sure want to remove this quote?',
-      buttons: [
-        {
-          text: 'Confirm',
-          handler: () => {
-            this.ViewCtrl.dismiss(remove);
+
+    if(remove) {
+      const alert = this.alertCtrl.create({
+        title: 'Remove this Quote?',
+        message: 'Are you sure want to remove this quote?',
+        buttons: [
+          {
+            text: 'Confirm',
+            handler: () => {
+              this.ViewCtrl.dismiss(remove);
+            }
+          },
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => console.log('Cancelled!')
           }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => console.log('Cancelled!')
-        }
-      ]
-    });
-    alert.present();
+        ]
+      });
+      alert.present();
+    }
+    else {
+      this.ViewCtrl.dismiss(remove);
+    }
   }
 }

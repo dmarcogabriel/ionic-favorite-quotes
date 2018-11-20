@@ -34,7 +34,7 @@ export class QuotesPage implements OnInit {
 
   //FAVORITE QUOTE
   //@param: selectedQuote: Quote;
-  addToFavorite(selectedQuote: Quote) {
+  addToFavorites(selectedQuote: Quote) {
     let alert = this.alertCtrl.create({
       title: 'Add Quote',
       subTitle: 'Are you sure?',
@@ -43,7 +43,7 @@ export class QuotesPage implements OnInit {
         text: 'Yes, go ahead!',
         handler: () => {
 
-          //Adiciona ao array favoriteQuotes
+          //Add to array 'favoriteQuotes'
           this.quoteService.addQuoteToFavorites(selectedQuote);
 
         }
@@ -57,6 +57,35 @@ export class QuotesPage implements OnInit {
       }]
     });
     alert.present();
+  }
+
+  //REMOVE FROM FAVORITES
+  removeFromFavorites(quote: Quote) {
+    const alert = this.alertCtrl.create({
+      title: "Remove Quote",
+      subTitle: "Are you sure?",
+      message: "Are you sure want to remove this quote?",
+      buttons: [
+        {
+          text: 'Remove',
+          handler: () => {
+
+            //Remove from array 'favoriteQuotes'
+            this.quoteService.removeQuoteFromFavorites(quote);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  //CHECK IF QUOTE IS FAVORITE
+  isFavorite(quote: Quote) {
+    return this.quoteService.isQuoteFavorited(quote);
   }
 
 }
